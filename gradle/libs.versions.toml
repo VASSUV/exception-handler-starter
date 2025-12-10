@@ -1,0 +1,17 @@
+[versions]
+kotlin = "2.2.10"
+spring-dependency-management = "1.1.7"
+spring-boot = "3.2.5"
+spring-web = "6.1.14"
+jackson = "2.19.0"
+slf4j = "2.0.16"
+
+[libraries]
+spring-boot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure", version.ref = "spring-boot" }
+spring-web = { module = "org.springframework:spring-web", version.ref = "spring-web" }
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }

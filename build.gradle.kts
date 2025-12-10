@@ -1,7 +1,6 @@
 plugins {
-    kotlin("jvm") version "2.2.10"
-
-    id("io.spring.dependency-management") version "1.1.7"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.spring.dependency.management)
     id("java-library")
     id("maven-publish")
 }
@@ -14,10 +13,10 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-autoconfigure:3.2.5")
-    implementation("org.springframework:spring-web:6.1.14")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.19.0")
-    implementation("org.slf4j:slf4j-api:2.0.16")
+    implementation(libs.spring.boot.autoconfigure)
+    implementation(libs.spring.web)
+    implementation(libs.jackson.module.kotlin)
+    implementation(libs.slf4j.api)
 
     testImplementation(kotlin("test"))
 }

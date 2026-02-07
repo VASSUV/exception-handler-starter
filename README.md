@@ -35,21 +35,19 @@
    ./gradlew publishAllPublicationsToGitHubPackagesRepository
    ```
 
-## Публикация в GitLab Package Registry
+## CI/CD через GitHub Actions
 
-1. Узнайте `project_id` проекта в GitLab.
-2. Создайте токен (Personal Access Token или Deploy Token) c правом `write_package_registry`.
-3. Передайте параметры:
-   ```bash
-   export GITLAB_PROJECT_ID=<project_id>
-   export GITLAB_USER=<gitlab_username_or_token_name>
-   export GITLAB_TOKEN=<gitlab_token>
-   ```
-4. Выполните публикацию:
-   ```bash
-   ./gradlew publishAllPublicationsToGitLabPackagesRepository
-   ```
+В репозитории добавлен workflow `.github/workflows/publish.yml` с двумя режимами:
 
+1. Авто-публикация по тегу:
+   - создайте тег вида `v1.2.3` и отправьте его в репозиторий;
+   - workflow соберёт проект и опубликует версию `1.2.3` в GitHub Packages.
+2. Полуручной запуск:
+   - запустите workflow вручную (`Run workflow`);
+   - укажите `version` (опционально) и флаг `publish`;
+   - если `publish=false`, выполнится только сборка и тесты (без публикации).
+
+Для публикации workflow использует встроенный `GITHUB_TOKEN`.
 ## Альтернатива через `~/.gradle/gradle.properties`
 
 Можно положить секреты в `~/.gradle/gradle.properties` вместо переменных:
@@ -60,7 +58,4 @@ githubRepo=<repo>
 githubUser=<github_username>
 githubToken=<github_pat>
 
-gitlabProjectId=<project_id>
-gitlabUser=<gitlab_username_or_token_name>
-gitlabToken=<gitlab_token>
 ```

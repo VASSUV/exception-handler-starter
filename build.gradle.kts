@@ -6,16 +6,16 @@ plugins {
 }
 
 group = "ru.vassuv"
-version = "0.0.1-SNAPSHOT"
+version = providers.gradleProperty("version").orElse("0.0.1-SNAPSHOT").get()
 
-val githubOwner = providers.gradleProperty("githubOwner").orElse(System.getenv("GITHUB_OWNER"))
-val githubRepo = providers.gradleProperty("githubRepo").orElse(System.getenv("GITHUB_REPO"))
-val githubUser = providers.gradleProperty("githubUser").orElse(System.getenv("GITHUB_ACTOR"))
-val githubToken = providers.gradleProperty("githubToken").orElse(System.getenv("GITHUB_TOKEN"))
-
-val gitlabProjectId = providers.gradleProperty("gitlabProjectId").orElse(System.getenv("GITLAB_PROJECT_ID"))
-val gitlabUser = providers.gradleProperty("gitlabUser").orElse(System.getenv("GITLAB_USER"))
-val gitlabToken = providers.gradleProperty("gitlabToken").orElse(System.getenv("GITLAB_TOKEN"))
+val githubOwner = providers.gradleProperty("githubOwner")
+    .orElse(providers.environmentVariable("GITHUB_OWNER"))
+val githubRepo = providers.gradleProperty("githubRepo")
+    .orElse(providers.environmentVariable("GITHUB_REPO"))
+val githubUser = providers.gradleProperty("githubUser")
+    .orElse(providers.environmentVariable("GITHUB_ACTOR"))
+val githubToken = providers.gradleProperty("githubToken")
+    .orElse(providers.environmentVariable("GITHUB_TOKEN"))
 
 repositories {
     mavenCentral()
@@ -49,17 +49,6 @@ publishing {
                 credentials {
                     username = githubUser.orNull
                     password = githubToken.orNull
-                }
-            }
-        }
-
-        if (gitlabProjectId.orNull != null) {
-            maven {
-                name = "GitLabPackages"
-                url = uri("https://gitlab.com/api/v4/projects/${gitlabProjectId.get()}/packages/maven")
-                credentials {
-                    username = gitlabUser.orNull
-                    password = gitlabToken.orNull
                 }
             }
         }
